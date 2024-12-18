@@ -1,0 +1,44 @@
+#!/bin/bash -l
+#SBATCH -J 300-01-K
+#SBATCH --ntasks=1
+#SBATCH --time=24:00:00
+#SBATCH --mail-type=none
+#SBATCH --mail-user=george.trenins@mpsd.mpg.de
+#SBATCH --mem=2000
+# Initial working directory:
+#SBATCH -D .
+
+##### Uncomment/modify as per your HPC system requirements ##
+## Load compiler and MPI modules (must be the same as used for compiling the code)
+#module purge
+#mpsd-modules 24a
+#module load gcc anaconda3
+#
+#eval "$(conda shell.bash hook)"
+#export OMP_NUM_THREADS=1  # restrict numpy (and other libraries) to one core
+#
+#source ${HOME}/software/gtlib/env.sh
+
+### Change these as required ####
+# Modify according to the output of "make_input.py"
+xR=0.0
+xdd=0.753238469763542
+xP=1.5015194126223488
+# number of independent simulations
+nrep=50
+# stride for the flux-side TCF
+fst="1.0 fs"
+
+
+### Modified by make_input.py
+# number of RP beads
+N=1
+# simulation temperature
+T=300
+
+python -u -m rpmdgle.rates.rpmdrate -T ${T} -a=${xR} -d=${xdd} -N ${N} -n ${nrep} \
+  -P potential.json --bath bath.json --coupling coupling.json \
+  --nvt-propa nvt.json --nve-propa nve.json --seed ${RANDOM} \
+  --fs --fs-burn="500 fs" --fs-traj="3.0 ps" --fs-stride="${fst}" \
+  --spawn 2000 --nboot 100 &> log.txt &
+wait
