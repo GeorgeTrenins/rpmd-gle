@@ -206,4 +206,80 @@ class Ring(BasePI):
     @check_shape
     def polymer_hessian(self, x):
         raise NotImplementedError
+
+
+class RestrainedRing(Ring):
+
+    def __init__(self, shift, k, direction, *args, **kwargs):
+        """Add a restraining potential on the centroid of the system,
+        V(q0) = HeavisideTheta[-sgn(direction)*(q0-shift)] * 
+        k/2 * (q0 - shift) --- CAUTION this class is specific to
+        1D system--bath problems, such that the configurations
+        x[...,0] refers to the system ring-polymers.
+
+        Args:
+            shift (float): point at which the harmonic 
+                restraint is activated
+            k (float): spring constant for the harmonic restraint
+            direction (scalar): "permitted" direction; 
+                if `direction` > 0 then the restraint is zero 
+                to the right of `shift`, otherwise zero to the 
+                left of `shift`.
+        """
+        self.shift = float(shift)
+        self.k = float(k)
+        self.sgn = np.sign(float(direction))
+        super().__init__(*args, **kwargs)
+
+    def external_potential(self, x):
+        pot = super().external_potential(x)
+        q = x[...,0]  # system ring-polymer(s)
+        q0 = np.mean(q, axis=-1)  # system centroid(s)
+        y = q0 - self.shift
+        bool_arr = self.sgn * y < 0
+        restraint_pot = np.where(bool_arr, 
+                                 self.N * self.k * y**2 / 2,
+                                 0.0)
+        pot += restraint_pot
+        return pot
     
+    def external_gradient(self, x):
+        g = super().external_gradient(x)
+        q = x[...,0]  # system ring-polymer(s)
+        gq = g[...,0]
+        q0 = np.mean(q, axis=-1)  # system centroid(s)
+        y = q0 - self.shift
+        bool_arr = self.sgn * y < 0
+        restraint_grad = np.where(
+            bool_arr, 
+            self.k * y,
+            0.0)
+        gq += restraint_grad
+        return g
+    
+    def external_force(self, x):
+        return -self.external_gradient(x)
+    
+    def external_both(self, x):
+        pot, g = super().external_both(x)
+        q = x[...,0]  # system ring-polymer(s)
+        gq = g[...,0]
+        q0 = np.mean(q, axis=-1)  # system centroid(s)
+        y = q0 - self.shift
+        bool_arr = self.sgn * y < 0
+        restraint_pot = np.where(bool_arr, 
+                                 self.N * self.k * y**2 / 2,
+                                 0.0)
+        pot += restraint_pot
+        restraint_grad = np.where(
+            bool_arr, 
+            self.k * y,
+            0.0)
+        gq += restraint_grad[...,None]
+        return pot, g
+    
+    def external_all(self, x):
+        raise NotImplementedError
+    
+    def external_hess(self, x):
+        raise NotImplementedError  
