@@ -40,5 +40,5 @@ python -u -m rpmdgle.rates.rpmdrate -T ${T} -a=${xR} -d=${xdd} -N ${N} -n ${nrep
   -P potential.json --bath bath.json --coupling coupling.json \
   --nvt-propa nvt.json --nve-propa nve.json --seed ${RANDOM} \
   --fs --fs-burn="500 fs" --fs-traj="3.0 ps" --fs-stride="${fst}" \
-  --spawn 2000 --nboot 100 &> log.txt &
+  --spawn 250 --nboot 100 &> log.txt &
 wait

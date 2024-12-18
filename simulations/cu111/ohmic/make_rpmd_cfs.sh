@@ -50,7 +50,7 @@ make_stuff() {
                 echo "naux = ${naux}"
                 mkdir -p "${dir}/naux_00${naux}"
                 python make_input.py ${model} ${bias}  -l $l -k $k -s $s \
-                    --wc ${wc} --naux 1 -T ${T} -N $N \
+                    --wc ${wc} --naux ${naux} -T ${T} -N $N \
                     --dt="${dt}" --tau="${tau}" --L0 ${scaledL0} ${linear} ${deuterate}
                 mv *json "${dir}/naux_00${naux}"
                 cp run.sh "${dir}/naux_00${naux}"
