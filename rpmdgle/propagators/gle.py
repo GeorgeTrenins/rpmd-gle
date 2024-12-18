@@ -240,7 +240,7 @@ class SepGLEaux(SepGLEPILE):
         """
         
         super().__init__(rpPES, SB, dt, xshape, rng, beta, tau=None, *args, **kwargs)
-        self.build_aux(aux, plot=kwargs.get("plot", False))
+        self.build_aux(aux)
 
     def build_aux(self, aux):
         if (naux := len(aux)) != self.nbeads:
