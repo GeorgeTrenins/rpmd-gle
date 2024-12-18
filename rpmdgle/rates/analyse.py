@@ -316,7 +316,7 @@ def fancy_flux(dt, kappa, Rqtst, Pqtst):
     from scipy.integrate import cumulative_trapezoid
     css = cumulative_trapezoid(kappa, dx=dt, initial=0.0)
     css *= (Rqtst + Pqtst)
-    return Rqtst/(1-css)
+    return Rqtst*kappa/(1-css)
 
 def get_rate(
     potential: str,
