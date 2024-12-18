@@ -24,7 +24,7 @@ dt="0.50 fs"
 tau="10 fs"
 
 model="pbe_light_frozen"
-bias=0.0145
+bias=0.010
 
 make_stuff() {
     for idx in "${indices[@]}"  ; do
@@ -48,7 +48,7 @@ make_stuff() {
                 --wc ${wc} --naux 1 -T ${T} -N $N \
                 --dt="${dt}" --tau="${tau}" --L0 ${scaledL0} ${linear} ${deuterate}
             mkdir -p "${dir}"
-            cp run.sh "${dir}"
+            mv run.sh "${dir}"
             mv *.json "${dir}"
         done
     done

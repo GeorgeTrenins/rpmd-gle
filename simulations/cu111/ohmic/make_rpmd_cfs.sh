@@ -24,7 +24,7 @@ dt="0.50 fs"
 tau="10 fs"
 
 model="pbe_light_frozen"
-bias=0.0145
+bias=0.010
 
 WD=$(pwd)
 

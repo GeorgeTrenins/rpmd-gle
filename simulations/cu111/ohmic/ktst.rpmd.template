@@ -73,9 +73,6 @@ rm -f hist_coords_P.*
 for file in hist_coords.*; do
     mv "$file" "${file/_coords./_coords_P.}"
 done
-for file in ti*_forces.*; do
-    mv "$file" "${file/_forces./_forces_P.}"
-done
 
 ### Change these as needed
 show=""
