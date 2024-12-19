@@ -1,0 +1,19 @@
+{
+    "UNITS": "eVAamu",
+    "P": 3.7218766134564003,
+    "P_rel_err": 0.0,
+    "ratio": 0.0019056791316195388,
+    "ratio_rel_err": 0.0,
+    "kQTST": 0.00027762513876293066,
+    "kQTST_err": 0.0,
+    "kQTST_rel_err": 0.0,
+    "PP": 3.6791804689949448,
+    "PP_rel_err": 0.0,
+    "ratioP": 0.00228846274230123,
+    "ratioP_rel_err": 0.0,
+    "kQTSTP": 0.00032956567779092504,
+    "kQTSTP_err": 0.0,
+    "kQTSTP_rel_err": 0.0,
+    "1/Keq": 1.18708874585146,
+    "1/Keq_err": 0.0
+}
