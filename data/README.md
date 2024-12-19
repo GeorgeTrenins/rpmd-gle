@@ -8,7 +8,7 @@
 
    + subdirectories `H` / `D` contain results for hydrogen and deuterium, respectively
 
-   + `wcut_2000` / `wcut_4000` contain results for spectral densities damped by an exponential window with a cut-off of 2000 and 4000 cm^-1^, respectively
+   + `wcut_2000` / `wcut_4000` contain results for spectral densities damped by an exponential window with a cut-off of 2000 and 4000 cm<sup>-1</sup>, respectively
 
    + the data are then stored in a directory tree, sorted by temperature -> number of ring-polymer beads -> scaling of ab initio frequency
 
