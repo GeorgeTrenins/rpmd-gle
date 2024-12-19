@@ -14,5 +14,5 @@
 
    + QTST simulation results are stored as JSON files; `kQTST` is the TST rate for *fcc* -> *hcp*, `kQTSTP` is the TST rate for *hcp* -> *fcc*. See `rpmdgle.rates.analyse` for further details
 
-   + Flux-side time correlation functions are stored as CSV files; the first column is time (in ps); the next two columns are the numerator in the definition of the transmission coefficient, e.g., Eq.~(47) of the paper by [Collepardo-Guevara et al.](https://doi.org/10.1063/1.2883593) and its sampling error estimate. The denominator and its error are given in the comment line; the last two columns are the transmission coefficient and its error
+   + Flux-side time correlation functions are stored as CSV files; the first column is time (in ps); the next two columns are the numerator in the definition of the transmission coefficient, e.g., Eq. (47) of the paper by [Collepardo-Guevara et al.](https://doi.org/10.1063/1.2883593) and its sampling error estimate. The denominator and its error are given in the comment line; the last two columns are the transmission coefficient and its error
 
