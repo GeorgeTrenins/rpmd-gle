@@ -12,6 +12,10 @@ before executing any of the examples.
 
  * `abinitio`: potential energy and friction obtained from DFT calculations with FHI-aims.
 
+ * `data`: TST rates and transmission coefficients computed using MD and RPMD (see subdirectory README for further details)
+
+ * `figures`: python scripts for generating the figures in the main article
+
  * `rpmdgle`: scripts for running and processing RPMD rate calculations
 
  * `auxvars`: pre-fitted auxiliary variable propagation parameters.
