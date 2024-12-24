@@ -46,16 +46,12 @@ def get_kappa(model, T, N, eta):
     return np.mean(fancy_cfs[mask]) / kTST_hcp
 
 
-fig = plt.figure(figsize=(3.375, 4))
+fig = plt.figure(figsize=(3.375, 1.9))
 
-ax0 = plt.subplot2grid((2, 2), (0, 0), colspan=1, rowspan=1)
-ax1 = plt.subplot2grid((2, 2), (0, 1), colspan=1, rowspan=1, sharex=ax0, sharey=ax0)
+ax0 = plt.subplot2grid((1, 2), (0, 0), colspan=1, rowspan=1)
+ax1 = plt.subplot2grid((1, 2), (0, 1), colspan=1, rowspan=1, sharex=ax0, sharey=ax0)
 plt.setp(ax1.get_yticklabels(), visible=False)
 ax0.set_xticks(np.linspace(0,1.5,4))
-ax2 = plt.subplot2grid((2, 2), (1, 0), colspan=1, rowspan=1)
-ax3 = plt.subplot2grid((2, 2), (1, 1), colspan=1, rowspan=1,
-                       sharex=ax2, sharey=ax2)
-plt.setp(ax3.get_yticklabels(), visible=False)
 
 T = 200
 model = 'sigma_20_meV/pbe_light_frozen/H/wcut_4000'
@@ -85,51 +81,22 @@ ax0.set_ylabel('transmission coefficient')
 ax0.set_xlim([-0.1, 1.6])
 leg = ax1.legend(lines,
            [rf'${n}$' for n in nbath]+[r'aux'],
-           ncol=(len(nbath)//2+1),
+           ncol=5, #(len(nbath)//2+1),
            bbox_transform=fig.transFigure, 
            loc='upper center', 
-           bbox_to_anchor=(0.565, 1.0))
+           handlelength=1.75,
+           bbox_to_anchor=(0.5, 1.0))
 
 
-T_lst = np.asarray([50, 60, 70, 80, 90, 100, 125, 150, 160, 175, 200, 225, 250, 300])
-nbeads = np.asarray([96, 64, 64, 48, 48, 48, 32, 32, 24, 24, 24, 24, 16, 16])
-models = [
-    'ohmic/pbe_light_frozen/H/wcut_4000',
-    'sigma_20_meV/pbe_light_frozen/H/wcut_4000'
-    ]
-colours = [mycolours.green, mycolours.orange]
-
-lines = []
-for eta, ax in zip([1.0, 10.0], [ax2, ax3]):
-    for model, c in zip(models, colours):
-        data = Path(os.environ['RPMDGLE']) / 'data' / model
-        for style, NN in zip(
-            [':', '-'],
-            [len(T_lst)*[1], nbeads],
-            ):
-            kappas: list[float] = []
-            for T, N in zip(T_lst, NN):
-                kappas.append(get_kappa(model, T, N, eta))
-            line, = ax.plot(1000/T_lst, np.log10(kappas), c=c, ls=style)
-            lines.append(line)
-    ax.set_xticks(list(range(5,25,5)))
-    ax.set_xlabel(r"$1000 / T$ (1/K)")
-ax2.set_ylim([-1.2,0.1])
-leg = ax3.legend(lines, 
-           ["Ohmic, MD", "Ohmic, RPMD", 
-            r"$0.02~\mathrm{eV}$, MD", 
-            r"$0.02~\mathrm{eV}$, RPMD"], ncol=2,
-            bbox_transform=fig.transFigure, 
-            loc='lower center', 
-            bbox_to_anchor=(0.565, 0.39))
-ax2.set_ylabel(r"$\log_{10} [\kappa(t_p)] $")
 fig.subplots_adjust(
-    hspace=0.8, wspace=0.15, left=0.175, right=.95, top=0.875)
+    hspace=0.8, wspace=0.15, left=0.175, right=.95, top=0.83, bottom=0.21)
+ax0.yaxis.set_label_coords(-0.325, 0.45)
+
 for ax, l in zip(
-    [ax0, ax1, ax2, ax3], string.ascii_lowercase):
+    [ax0, ax1], string.ascii_lowercase):
     t = ax.text(
-        0.95, 0.075, f'({l})', transform=ax.transAxes, 
-        ha='right', va='bottom', 
+        0.95, 0.9, f'({l})', transform=ax.transAxes, 
+        ha='right', va='top', 
         clip_on=False)
 fig.savefig('fig2.png')
 fig.savefig('fig2.eps')

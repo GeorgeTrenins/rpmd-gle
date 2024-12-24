@@ -23,7 +23,7 @@ from rpmdgle.rates.analyse import fancy_flux
 from rpmdgle import units
 
 
-fig, (ax0, ax1) = plt.subplots(figsize=(3.375, 3.5), nrows=2, sharex=True)
+fig, (ax0, ax1) = plt.subplots(figsize=(3.375, 2.05), ncols=2, sharex=True)
 u = eVAamu()
 
 T_lst = np.asarray([50, 60, 70, 80, 90, 100, 125, 150, 160, 175, 200, 225, 250, 300])
@@ -109,7 +109,7 @@ x, rate = np.loadtxt(
     unpack=True, delimiter=',', skiprows=1)
 expt, = ax0.plot(x, np.log10(rate), 'x', ms=4, 
          mfc='k', mec='k')
-qtst, = ax0.plot(Tinv, np.log10(ohmic_rpmd_h_01_tst), 'k-.')
+qtst, = ax0.plot(Tinv, np.log10(ohmic_rpmd_h_01_tst), 'k--')
 rpmd_super, = ax0.plot(Tinv, np.log10(super_rpmd_h_01), '^', ms=4,
           mec=mycolours.orange, mfc=mycolours.orange)
 
@@ -132,7 +132,7 @@ x, rate = np.loadtxt(
     unpack=True, delimiter=',', skiprows=1)
 ax1.plot(x, np.log10(rate), 'x', ms=4,
         mec='k', mfc='k')
-ax1.plot(Tinv, np.log10(ohmic_rpmd_d_01_tst), 'k-.')
+ax1.plot(Tinv, np.log10(ohmic_rpmd_d_01_tst), 'k--')
 ax1.plot(Tinv, np.log10(ohmic_rpmd_d_01), '^', ms=4,
          mec=mycolours.green, mfc=mycolours.green)
 
@@ -154,29 +154,33 @@ ax0.set_ylim([-2.45, -0.75])
 ax1.set_ylim([-3.25, -1.25])
 for ax in [ax0, ax1]:
     ax.set_xticks(list(range(4,8)))
-for ax in [ax0, ax1]:
-    ax.set_ylabel(r"$\log_{10} [k(1/\mathrm{ps})] $")
+ax0.set_ylabel(r"$\log_{10} [k(1/\mathrm{ps})] $")
 for ax, l in zip(
     [ax0, ax1], string.ascii_lowercase):
     t = ax.text(
         0.95, 0.92, f'({l})', transform=ax.transAxes, 
         ha='right', va='top', 
         clip_on=False)
-ax1.set_xlabel(r"$1000 / T$ (1/K)")  
+for ax in [ax0, ax1]:
+    ax.set_xlabel(r"$1000 / T$ (1/K)")  
     
-legend = ax0.legend(
-    [cl_ohmic, cl_super, qtst, rpmd_ohmic, rpmd_super, expt],
+legend = fig.legend(
+    [cl_ohmic, cl_super, 
+     rpmd_ohmic, rpmd_super, 
+     qtst, expt],
     [
-        'classical (Ohmic)', r'classical (0.02 eV)', 'QTST',
-        'RPMD (Ohmic)', r'RPMD (0.02 eV)', 'experiment'
+        'classical (Ohmic)', r'classical (0.02 eV)', 
+        'RPMD (Ohmic)', r'RPMD (0.02 eV)', 
+        'QTST', 'experiment'
     ], 
-    ncol=2,
-    bbox_transform=ax0.transAxes, 
-    loc='lower center', 
+    ncol=3,
+    loc='upper center', 
     bbox_to_anchor=(0.5, 1.02),
-    handletextpad=0.2)
+    handlelength=1.65,
+    columnspacing=1,
+    handletextpad=0.3)
 
 fig.subplots_adjust(
-    hspace=0.12, wspace=0.35, left=0.175, right=.95, top=0.81)    
+    hspace=0.12, wspace=0.35, left=0.16, right=.99, top=0.75, bottom=0.2)
 fig.savefig('fig3.png')
 fig.savefig('fig3.eps')

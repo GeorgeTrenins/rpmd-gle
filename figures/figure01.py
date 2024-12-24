@@ -42,7 +42,7 @@ def get_kQTST_data(model, temp, N):
             kQTST_list.append(d["kQTSTP"])
     return np.asarray(eta_list), np.asarray(kQTST_list)
 
-fig = plt.figure(figsize=(3.375, 5.0))
+fig = plt.figure(figsize=(3.375, 4.6))
 
 with open(data / 'ohmic' / 'pbe_light_frozen' / 'H' / 'potential.json', 'r') as f:
     pot = json.load(f)
@@ -103,7 +103,12 @@ for s, c, ax in zip(
     ax.set_xlim([0,0.6])
     ax.set_ylim([-0.1, 3.2])
     ax.set_yticks(np.linspace(0,3,4))
-    ax.legend(labelspacing=0.2)
+    ax.legend(
+        labelspacing=0.2,
+        bbox_transform=ax.transAxes, 
+        loc='lower right', 
+        handlelength=1.75,
+        bbox_to_anchor=(1.03, -0.04))
 
 
 lines = []
@@ -136,7 +141,11 @@ ax4.set_xlabel(r'friction scale factor')
 ax4.legend(
     lines[::-1], 
     [r'$0.02~\mathrm{eV}$', r'$0.04~\mathrm{eV}$', 'Ohmic' ],
-    labelspacing=0.2)
+    labelspacing=0.2,
+    bbox_transform=ax4.transAxes, 
+    loc='lower left', 
+    handlelength=1.75,
+    bbox_to_anchor=(-0.01, -0.02))
 ax4.set_ylim([-3.80, -1.00])
 ax4.set_xlim([-0.75, 10.75])
 
@@ -146,15 +155,17 @@ text = []
 for ax, l, x, y in zip(
     axes, string.ascii_lowercase,
     3*[0.085, 0.585],
-    [0.96, 0.96, 0.67, 0.67, 0.415]):
+    [0.965, 0.965, 0.67, 0.67, 0.42]):
     t = ax.text(
         x, y, f'({l})', transform=fig.transFigure, 
         ha='right', va='bottom', 
         clip_on=False)
     text.append(t)
-fig.subplots_adjust(hspace=3.0, wspace=10.0, top=0.95, left=0.17, right=0.96)
+fig.subplots_adjust(hspace=3.0, wspace=10.0, 
+                    top=0.97, left=0.17, right=0.96,
+                    bottom=0.08)
 # move the image
 l, b, w, h = ax1.get_position().bounds
-ax1.set_position([l-0.05, b-0.02, w*1.2, h*1.2])
+ax1.set_position([l-0.05, b-0.03, w*1.2, h*1.2])
 plt.savefig('fig1.png')
 plt.savefig('fig1.eps')
