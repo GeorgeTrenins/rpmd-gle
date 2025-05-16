@@ -15,7 +15,7 @@ import matplotlib.image as mpimg
 from pathlib import Path
 from rpmdgle.pes.splined import OneDCubic as Splined
 from rpmdgle.units import SI
-from rpmdgle.utils.aims.friction import FrictionParser
+from eftools.friction import FrictionParser
 import json
 import numpy as np
 import mycolours

@@ -1,0 +1,25 @@
+xc                        pbe
+relativistic              atomic_zora scalar
+spin                      none 
+k_grid                    16 16 1 
+k_offset                  0.46875 0.46875 0.0
+use_gpu                   .true.
+use_dipole_correction
+occupation_type           gaussian  0.1 
+vdw_correction_hirshfeld  
+vdw_pair_ignore           Cu Cu
+#
+# Friction
+#
+output                    k_point_list
+output                    mulliken 
+calculate_friction                 numerical_friction
+calculate_all_eigenstates          .true.
+friction_max_energy                2.0
+friction_iter_limit                50
+friction_elsi_epc_write            .true.
+friction_output_eigenvalues        .true.
+friction_output_tensor_grid        .true.
+friction_discretization_length     0.01
+friction_window_size               0.01
+

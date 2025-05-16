@@ -4,7 +4,6 @@
 @File    :   make_input.py
 @Time    :   2024/09/12 14:10:18
 @Author  :   George Trenins
-@Desc    :   Input generator used after refactoring sysbath part of gtlib
 '''
 
 
@@ -49,7 +48,7 @@ def broaden_spectral_density(
         freqs: np.ndarray, 
         Lambda: np.ndarray, 
         sigma: float) -> np.ndarray: 
-    from rpmdgle.utils.aims.friction import FrictionParser
+    from eftools.friction import FrictionParser
     assert (freqs.ndim == 1) and (Lambda.ndim == 2)
     ans = np.zeros_like(Lambda)
     width = 0.01 # friction_window_size in eV pre-broadening

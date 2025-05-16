@@ -1,0 +1,7 @@
+# friction_tensor in 1/ps
+# n_atom  81 i_cart   1 index   1
+    1.962959   -0.034464   -0.004023
+# n_atom  81 i_cart   2 index   2
+   -0.034464    2.003093   -0.004965
+# n_atom  81 i_cart   3 index   3
+   -0.004023   -0.004965    1.662567

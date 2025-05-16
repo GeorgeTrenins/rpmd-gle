@@ -1,0 +1,20 @@
+lines.linewidth : 1
+figure.dpi : 300
+font.size : 8.0
+text.usetex : True
+text.latex.preamble : \usepackage{amsmath,amssymb,bm,braket,siunitx}
+font.family : serif
+font.serif : 'Computer Modern'
+axes.titlesize:     10.0
+axes.labelsize:     10.0
+xtick.labelsize:    8.0
+xtick.top:           True
+xtick.bottom:        True
+xtick.direction:      in
+xtick.minor.visible: True
+ytick.labelsize:    8.0
+ytick.left:          True
+ytick.right:         True
+ytick.direction:     in
+ytick.minor.visible: True
+figure.figsize : 3.35, 2.1
